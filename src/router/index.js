@@ -14,6 +14,10 @@ const routes = [
     component: () => import('../views/MetawallView.vue'),
     children: [
       {
+        path: '',
+        redirect: 'posts',
+      },
+      {
         path: 'posts',
         component: () => import('../views/PostsView.vue'),
       },

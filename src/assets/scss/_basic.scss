@@ -1,0 +1,22 @@
+html {
+    background-color: $color-beige;
+}
+
+body {
+    line-height: 1.5;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+button {
+    border: 0;
+    outline: 0;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}

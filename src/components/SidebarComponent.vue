@@ -1,27 +1,33 @@
 <template>
-  <div class="bg-white border border-2 border-dark px-6 py-8">
+  <div class="sidebar">
     <router-link
       to="/metawall/post"
-      class="btn btn-primary btn-hover-warning shadow-btn border border-2 border-dark w-100 mb-6"
+      class="btn btn-primary"
       >張貼動態</router-link
     >
-    <ul class="menu">
-      <li class="menu-item mb-5">
-        <a class="menu-link" href="#">
-          <img class="menu-icons border-0 me-4" src="@/assets/img/user.png" alt="headshot" />
-          邊緣小杰
+    <ul class="sidebar__list">
+      <li class="sidebar__list-item">
+        <a class="sidebar__list-link" href="#">
+          <div class="sidebar__list-image">
+            <img src="@/assets/img/user.png" alt="headshot" />
+          </div>
+          <span>邊緣小杰</span>
         </a>
       </li>
-      <li class="menu-item mb-5">
-        <router-link class="menu-link" to="/metawall/following">
-          <i class="menu-icons bg-info bi bi-bell fs-5 me-4"></i>
-          追蹤名單
+      <li class="sidebar__list-item">
+        <router-link class="sidebar__list-link" to="/metawall/following">
+          <div class="sidebar__list-icon">
+            <i class="bi-bell"></i>
+          </div>
+          <span>追蹤名單</span>
         </router-link>
       </li>
-      <li class="menu-item">
-        <router-link class="menu-link" to="/metawall/likes">
-          <i class="menu-icons bg-info bi bi-hand-thumbs-up fs-5 me-4"></i>
-          我按讚的文章
+      <li class="sidebar__list-item">
+        <router-link class="sidebar__list-link" to="/metawall/likes">
+          <div class="sidebar__list-icon">
+            <i class="bi-hand-thumbs-up"></i>
+          </div>
+          <span>我按讚的文章</span>
         </router-link>
       </li>
     </ul>

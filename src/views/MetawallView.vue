@@ -1,24 +1,24 @@
 <template>
-  <Navbar />
-  <div class="container pt-12" style="max-width: 869px">
-    <div class="d-flex justify-content-between">
-      <div style="width: 61%">
+  <Header />
+  <div class="container">
+    <div class="wrapper">
+      <main class="main">
         <router-view />
-      </div>
-      <div style="width: 35%">
+      </main>
+      <aside class="aside">
         <Sidebar />
-      </div>
+      </aside>
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/NavbarComponent.vue';
+import Header from '@/components/HeaderComponent.vue';
 import Sidebar from '@/components/SidebarComponent.vue';
 
 export default {
   components: {
-    Navbar,
+    Header,
     Sidebar,
   },
 };

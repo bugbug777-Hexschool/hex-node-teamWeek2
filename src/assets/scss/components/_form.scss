@@ -1,0 +1,72 @@
+.form-control {
+    margin-bottom: 1rem;
+    .form-label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: .5rem;
+    }
+    input,select,textarea {
+        display: block;
+        width: 100%;
+        font-size: 1rem;
+        padding: 10px;
+        line-height: 1.2;
+        border: 2px solid $color-dark;
+        box-sizing: border-box;
+    }
+}
+
+.form-upload {
+    margin-bottom: 1rem;
+    .form-label {
+        display: inline-block;
+        padding: 5px 20px;
+        color: #fff;
+        background-color: #000;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input {
+        display: none;
+    }
+}
+
+// 搜尋欄位
+.searchBar {
+    margin-bottom: 1rem;
+    &-keyword {
+        display: flex;
+        flex: 1;
+
+        &-input {
+            flex: 1;
+        }
+        &-btn {
+            flex: 0;
+            padding: 5px 15px;
+            color: #fff;
+            background-color: $color-primary;
+            border: 2px solid #000;
+            border-left: 0;
+            &:hover,&:focus {
+                color: $color-dark;
+                background-color: $color-secondary;
+            }
+        }
+    }
+
+    .form-control {
+        margin-bottom: 0;
+    }
+    .form-label {
+        display: none;
+    }
+
+    @include media-min(576px) {
+        display: flex;
+        &-type {
+            display: inline-block;
+            margin-right: 1rem;
+        }
+    }
+}
