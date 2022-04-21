@@ -65,16 +65,15 @@
     <li v-for="post in posts" :key="post._id" class="postList-item">
       <div class="post">
         <div class="post__meta metaItem">
-          <img class="metaItem-avatar" :src="post.userPhoto" alt="headshot" />
+          <img class="metaItem-avatar" src="@/assets/img/user.png" alt="headshot" />
           <div class="metaItem-info">
             <a class="metaItem-name" href="#">{{ post.userName }}</a>
             <time class="metaItem-date">{{ data_filter(post.createdAt) }}</time>
-            <!-- <time class="metaItem-date">2022/1/10 12:00</time> -->
           </div>
         </div>
         <p class="post__content">{{ post.userContent }}</p>
         <div class="post__image">
-          <img src="@/assets/img/image2@2x.png" alt="snow" />
+          <img :src="post.userPhoto" alt="snow" />
         </div>
         <!-- 按讚 -->
         <div class="post__actions">
@@ -108,23 +107,9 @@ export default {
   data() {
     return {
       posts: [],
-      photos: [],
     };
   },
   methods: {
-    get_fake_userPhoto(num) {
-      const randomUserAPI = `https://randomuser.me/api/?results=${num}`;
-      this.$http
-        .get(randomUserAPI)
-        .then((res) => {
-          res.data.results.forEach((item, index) => {
-            this.posts[index].userPhoto = item.picture.large;
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     get_posts() {
       const url = 'https://stark-lake-13823.herokuapp.com/posts';
       this.$http
@@ -132,7 +117,6 @@ export default {
         .then((res) => {
           if (res.data.status === 'success') {
             this.posts = res.data.posts;
-            this.get_fake_userPhoto(this.posts.length);
           }
         })
         .catch((err) => {
