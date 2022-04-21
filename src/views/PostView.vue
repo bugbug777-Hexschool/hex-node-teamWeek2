@@ -34,23 +34,28 @@ export default {
     return {
       post: {
         userName: '邊緣小杰',
-        userContent: '今天竟然下雪哩！',
+        userContent: '',
         userPhoto:
-          'https://images.unsplash.com/photo-1482066490729-6f26115b60dc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2014&q=80',
+          'https://images.unsplash.com/photo-1452857297128-d9c29adba80b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80',
       },
     };
   },
   methods: {
     send_post() {
+      // alert 為暫時使用的提醒標示
       const api = 'https://stark-lake-13823.herokuapp.com/posts';
-      this.$http
-        .post(api, this.post)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+
+      if (this.post.userContent === '') {
+        alert('貼文內容不可為空！');
+        return;
+      }
+      this.$http.post(api, this.post).then((res) => {
+        if (res.status) {
+          alert('發送成功！');
+          this.post.userContent = '';
+          this.post.userPhoto = '';
+        }
+      });
     },
   },
 };
