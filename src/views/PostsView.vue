@@ -1,12 +1,12 @@
 <template>
-
   <Searchbar />
   <!-- 動態牆 -->
   <ul class="postList">
-    <li class="postList-item">
+    <!-- 用不到，先隱藏 -->
+    <li class="postList-item" style="display: none">
       <div class="post">
         <div class="post__meta metaItem">
-          <img class="metaItem-avatar" src="@/assets/img/user.png" alt="headshot"/>
+          <img class="metaItem-avatar" src="@/assets/img/user.png" alt="headshot" />
           <div class="metaItem-info">
             <a class="metaItem-name" href="#">邊緣小杰</a>
             <time class="metaItem-date">2022/1/10 12:00</time>
@@ -17,7 +17,7 @@
           我決定回被窩繼續睡....&gt;.&lt;
         </p>
         <div class="post__image">
-          <img src="@/assets/img/image@2x.png" alt="snow"/>
+          <img src="@/assets/img/image@2x.png" alt="snow" />
         </div>
 
         <!-- 按讚 -->
@@ -29,14 +29,10 @@
         </div>
         <!-- 留言 -->
         <div class="post__reply">
-          <img
-            src="@/assets/img/user.png"
-            alt="headshot"
-            class="post__reply-avatar"
-          />
+          <img src="@/assets/img/user.png" alt="headshot" class="post__reply-avatar" />
           <div class="form-control post__reply-input">
             <label for="" class="form-label"></label>
-            <input type="text" placeholder="留言..."/>
+            <input type="text" placeholder="留言..." />
           </div>
           <button class="post__reply-btn" type="button">留言</button>
         </div>
@@ -44,11 +40,7 @@
         <ul class="post__replyList">
           <li class="post__replyList-item">
             <div class="metaItem">
-              <img
-                class="metaItem-avatar"
-                src="@/assets/img/user5.png"
-                alt="headshot"
-              />
+              <img class="metaItem-avatar" src="@/assets/img/user5.png" alt="headshot" />
               <div class="metaItem-info">
                 <a class="metaItem-name" href="#">希琳</a>
                 <time class="metaItem-date">2022/1/11 10:00</time>
@@ -58,11 +50,7 @@
           </li>
           <li class="post__replyList-item">
             <div class="metaItem">
-              <img
-                class="metaItem-avatar"
-                src="@/assets/img/user5-2.png"
-                alt="headshot"
-              />
+              <img class="metaItem-avatar" src="@/assets/img/user5-2.png" alt="headshot" />
               <div class="metaItem-info">
                 <a class="metaItem-name" href="#">波吉</a>
                 <time class="metaItem-date">2022/1/11 10:00</time>
@@ -73,21 +61,20 @@
         </ul>
       </div>
     </li>
-    <li class="postList-item">
+    <!--  -->
+    <li v-for="post in posts" :key="post._id" class="postList-item">
       <div class="post">
         <div class="post__meta metaItem">
-          <img class="metaItem-avatar" src="@/assets/img/user.png" alt="headshot"/>
+          <img class="metaItem-avatar" :src="post.userPhoto" alt="headshot" />
           <div class="metaItem-info">
-            <a class="metaItem-name" href="#">邊緣小杰</a>
-            <time class="metaItem-date">2022/1/10 12:00</time>
+            <a class="metaItem-name" href="#">{{ post.userName }}</a>
+            <time class="metaItem-date">{{ post.createdAt }}</time>
+            <!-- <time class="metaItem-date">2022/1/10 12:00</time> -->
           </div>
         </div>
-        <p class="post__content">搶到想要的 NFT 啦！ya~~</p>
+        <p class="post__content">{{ post.userContent }}</p>
         <div class="post__image">
-          <img
-            src="@/assets/img/image2@2x.png"
-            alt="snow"
-          />
+          <img src="@/assets/img/image2@2x.png" alt="snow" />
         </div>
         <!-- 按讚 -->
         <div class="post__actions">
@@ -98,14 +85,10 @@
         </div>
         <!-- 留言 -->
         <div class="post__reply">
-          <img
-            src="@/assets/img/user.png"
-            alt="headshot"
-            class="post__reply-avatar"
-          />
+          <img :src="post.userPhoto" alt="headshot" class="post__reply-avatar" />
           <div class="form-control post__reply-input">
             <label for="" class="form-label"></label>
-            <input type="text" placeholder="留言..."/>
+            <input type="text" placeholder="留言..." />
           </div>
           <button class="post__reply-btn" type="button">留言</button>
         </div>
@@ -120,6 +103,44 @@ import Searchbar from '@/components/SearchbarComponent.vue';
 export default {
   components: {
     Searchbar,
+  },
+  data() {
+    return {
+      posts: [],
+      photos: [],
+    };
+  },
+  methods: {
+    get_fake_userPhoto(num) {
+      const randomUserAPI = `https://randomuser.me/api/?results=${num}`;
+      this.$http
+        .get(randomUserAPI)
+        .then((res) => {
+          res.data.results.forEach((item, index) => {
+            this.posts[index].userPhoto = item.picture.large;
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    get_posts() {
+      const url = 'https://stark-lake-13823.herokuapp.com/posts';
+      this.$http
+        .get(url)
+        .then((res) => {
+          if (res.data.status === 'success') {
+            this.posts = res.data.posts;
+            this.get_fake_userPhoto(this.posts.length);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+  async mounted() {
+    await this.get_posts();
   },
 };
 </script>
