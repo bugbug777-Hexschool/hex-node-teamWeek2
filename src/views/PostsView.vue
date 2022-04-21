@@ -139,8 +139,8 @@ export default {
         });
     },
   },
-  async mounted() {
-    await this.get_posts();
+  mounted() {
+    this.get_posts();
   },
 };
 </script>
