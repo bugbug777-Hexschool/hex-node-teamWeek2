@@ -68,7 +68,7 @@
           <img class="metaItem-avatar" :src="post.userPhoto" alt="headshot" />
           <div class="metaItem-info">
             <a class="metaItem-name" href="#">{{ post.userName }}</a>
-            <time class="metaItem-date">{{ post.createdAt }}</time>
+            <time class="metaItem-date">{{ data_filter(post.createdAt) }}</time>
             <!-- <time class="metaItem-date">2022/1/10 12:00</time> -->
           </div>
         </div>
@@ -98,6 +98,7 @@
 </template>
 
 <script>
+import * as dayjs from 'dayjs';
 import Searchbar from '@/components/SearchbarComponent.vue';
 
 export default {
@@ -137,6 +138,9 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    data_filter(date) {
+      return dayjs(date).format('YYYY/M/DD HH:mm');
     },
   },
   mounted() {
