@@ -61,7 +61,7 @@
         </ul>
       </div>
     </li>
-    <!--  -->
+    <!-- Main -->
     <li v-for="post in posts" :key="post._id" class="postList-item">
       <div class="post">
         <div class="post__meta metaItem">
@@ -85,7 +85,7 @@
         </div>
         <!-- 留言 -->
         <div class="post__reply">
-          <img :src="post.userPhoto" alt="headshot" class="post__reply-avatar" />
+          <img src="@/assets/img/user.png" alt="headshot" class="post__reply-avatar" />
           <div class="form-control post__reply-input">
             <label for="" class="form-label"></label>
             <input type="text" placeholder="留言..." />
